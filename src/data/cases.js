@@ -1,0 +1,88 @@
+export const cases = [
+  {
+    id: 'helpdesk',
+    emoji: '🛠',
+    title: 'ИС учёта заявок на ТО оборудования',
+    customer: 'Технический отдел авиазавода',
+    tagline: 'Заявки теряются в почте, диспетчер плачет, оборудование стоит.',
+    problems: [
+      { text: 'Заявки теряются в почте и мессенджерах', correct: true },
+      { text: 'Слишком дорогой сервер в другом городе', correct: false },
+      { text: 'Все хотят новую систему, просто потому что модно', correct: false },
+      { text: 'Диспетчер ведёт заявки в Excel, файл бьётся', correct: true },
+      { text: 'У директора ноутбук старый', correct: false },
+      { text: 'Нет единого реестра оборудования', correct: true },
+    ],
+    goals: [
+      { text: 'Сократить среднее время обработки заявки с 3 дней до 4 часов за 2 месяца', correct: true },
+      { text: 'Сделать красиво и современно', correct: false },
+      { text: 'Автоматизировать всё, включая кофеварку', correct: false },
+      { text: 'Внедрить систему учёта заявок с отчётностью для руководства', correct: true },
+      { text: 'Победить в конкурсе «Лучший IT-проект года»', correct: false },
+    ],
+    stakeholders: [
+      { text: 'Диспетчер заявок', correct: true },
+      { text: 'Технический отдел', correct: true },
+      { text: 'Руководство завода', correct: true },
+      { text: 'Дворник дядя Вася', correct: false },
+      { text: 'Служба безопасности', correct: false },
+      { text: 'ИТ-отдел', correct: true },
+    ],
+  },
+
+  {
+    id: 'library',
+    emoji: '📚',
+    title: 'Онлайн-библиотека для колледжа',
+    customer: 'Учебная часть ИАТ',
+    tagline: 'Учебники в шкафу, очередь на Гарри Поттера, вечная путаница.',
+    problems: [
+      { text: 'Учёт выдачи книг в тетрадке, теряется', correct: true },
+      { text: 'Студенты не знают, есть ли книга в наличии', correct: true },
+      { text: 'Библиотекарь не любит свою работу', correct: false },
+      { text: 'Нет электронного каталога', correct: true },
+      { text: 'Слишком много пыли на полках', correct: false },
+      { text: 'Книги выдают без очереди', correct: false },
+    ],
+    goals: [
+      { text: 'Запустить электронный каталог и онлайн-бронирование за 3 месяца', correct: true },
+      { text: 'Оцифровать все книги мира', correct: false },
+      { text: 'Снизить нагрузку на библиотекаря и убрать бумажный учёт', correct: true },
+      { text: 'Сделать приложение с дополненной реальностью', correct: false },
+    ],
+    stakeholders: [
+      { text: 'Библиотекарь', correct: true },
+      { text: 'Студенты', correct: true },
+      { text: 'Учебная часть', correct: true },
+      { text: 'Издательство «Просвещение»', correct: false },
+      { text: 'Преподаватели литературы', correct: false },
+    ],
+  },
+
+  {
+    id: 'coworking',
+    emoji: '🏢',
+    title: 'Коворкинг для студентов-разработчиков',
+    customer: 'Студенческий совет ИАТ',
+    tagline: 'Собираются в коридоре, шумят, мешают, но хотят работать.',
+    problems: [
+      { text: 'Нет места, где можно спокойно писать код', correct: true },
+      { text: 'Wi-Fi в коридоре не ловит', correct: true },
+      { text: 'Не хватает розеток', correct: true },
+      { text: 'Студенты не любят учиться', correct: false },
+      { text: 'В столовой закончились пирожки', correct: false },
+    ],
+    goals: [
+      { text: 'Организовать коворкинг с 10 местами и стабильным Wi-Fi за 1,5 месяца', correct: true },
+      { text: 'Построить новый корпус', correct: false },
+      { text: 'Сделать систему бронирования мест', correct: true },
+      { text: 'Организовать турнир по CS:GO', correct: false },
+    ],
+    stakeholders: [
+      { text: 'Студенты-разработчики', correct: true },
+      { text: 'Студенческий совет', correct: true },
+      { text: 'Администрация техникума', correct: true },
+      { text: 'Федерация киберспорта', correct: false },
+    ],
+  },
+]

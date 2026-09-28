@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: radial-gradient(circle at 20% 20%, #1e293b 0%, #0f172a 60%, #020617 100%);
+  min-height: 100vh;
+}
+
+.card {
+  @apply bg-slate-900/70 border border-slate-800 rounded-2xl p-5 backdrop-blur-sm;
+}
+
+.btn {
+  @apply px-5 py-2.5 rounded-xl font-semibold transition-all duration-150 active:scale-95;
+}
+
+.btn-primary {
+  @apply btn bg-brand-600 hover:bg-brand-500 text-white shadow-lg shadow-brand-600/30;
+}
+
+.btn-ghost {
+  @apply btn bg-slate-800 hover:bg-slate-700 text-slate-200;
+}
+
+.tag {
+  @apply px-2.5 py-1 rounded-full text-xs font-semibold;
+}
