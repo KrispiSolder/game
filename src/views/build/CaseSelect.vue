@@ -10,28 +10,46 @@ const store = useProjectStore()
 const idx = ref(0)
 const current = computed(() => cases[idx.value])
 
-const pickedProblems = ref(new Set())
-const pickedGoals = ref(new Set())
-const pickedStakeholders = ref(new Set())
+// Массивы индексов — Vue отлично отслеживает изменения в массивах
+const pickedProblems = ref([])
+const pickedGoals = ref([])
+const pickedStakeholders = ref([])
 
-function toggle(set, id) {
-  const s = set.value
-  s.has(id) ? s.delete(id) : s.add(id)
-  // force reactivity
-  set.value = new Set(s)
+function toggleProblem(i) {
+  const pos = pickedProblems.value.indexOf(i)
+  if (pos === -1) pickedProblems.value.push(i)
+  else pickedProblems.value.splice(pos, 1)
+}
+
+function toggleStakeholder(i) {
+  const pos = pickedStakeholders.value.indexOf(i)
+  if (pos === -1) pickedStakeholders.value.push(i)
+  else pickedStakeholders.value.splice(pos, 1)
+}
+
+function pickGoal(i) {
+  pickedGoals.value = [i]
+}
+
+// Сброс выбора при смене кейса
+function switchCase(i) {
+  idx.value = i
+  pickedProblems.value = []
+  pickedGoals.value = []
+  pickedStakeholders.value = []
 }
 
 function next() {
   store.caseId = current.value.id
-  store.goal = current.value.goals.find((_, i) => pickedGoals.value.has(i))?.text
-  store.stakeholders = [...pickedStakeholders.value].map(i => current.value.stakeholders[i].text)
+  store.goal = current.value.goals[pickedGoals.value[0]]?.text
+  store.stakeholders = pickedStakeholders.value.map(i => current.value.stakeholders[i].text)
   router.push({ name: 'team-pick' })
 }
 
 const canNext = computed(() =>
-  pickedProblems.value.size >= 1 &&
-  pickedGoals.value.size === 1 &&
-  pickedStakeholders.value.size >= 2
+  pickedProblems.value.length >= 1 &&
+  pickedGoals.value.length === 1 &&
+  pickedStakeholders.value.length >= 2
 )
 </script>
 
@@ -44,10 +62,10 @@ const canNext = computed(() =>
     </div>
 
     <!-- Переключатель кейсов -->
-    <div class="flex gap-3 mb-6">
+    <div class="flex flex-wrap gap-3 mb-6">
       <button
         v-for="(c, i) in cases" :key="c.id"
-        @click="idx = i"
+        @click="switchCase(i)"
         class="btn"
         :class="i === idx ? 'bg-brand-600 text-white' : 'btn-ghost'"
       >
@@ -67,9 +85,11 @@ const canNext = computed(() =>
         <div class="font-bold mb-3 text-danger">🔴 Проблемы (выбери верные)</div>
         <button
           v-for="(p, i) in current.problems" :key="'p'+i"
-          @click="toggle(pickedProblems, i)"
+          @click="toggleProblem(i)"
           class="w-full text-left text-sm py-2 px-3 rounded-lg mb-2 transition"
-          :class="pickedProblems.has(i) ? 'bg-brand-600' : 'bg-slate-800 hover:bg-slate-700'"
+          :class="pickedProblems.includes(i)
+            ? 'bg-brand-600 text-white'
+            : 'bg-slate-800 hover:bg-slate-700'"
         >
           {{ p.text }}
         </button>
@@ -80,9 +100,11 @@ const canNext = computed(() =>
         <div class="font-bold mb-3 text-success">🎯 Цель (выбери одну)</div>
         <button
           v-for="(g, i) in current.goals" :key="'g'+i"
-          @click="pickedGoals = new Set([i])"
+          @click="pickGoal(i)"
           class="w-full text-left text-sm py-2 px-3 rounded-lg mb-2 transition"
-          :class="pickedGoals.has(i) ? 'bg-success text-white' : 'bg-slate-800 hover:bg-slate-700'"
+          :class="pickedGoals.includes(i)
+            ? 'bg-success text-white'
+            : 'bg-slate-800 hover:bg-slate-700'"
         >
           {{ g.text }}
         </button>
@@ -93,9 +115,11 @@ const canNext = computed(() =>
         <div class="font-bold mb-3 text-brand-500">👥 Заинтересованные (выбери ≥2)</div>
         <button
           v-for="(s, i) in current.stakeholders" :key="'s'+i"
-          @click="toggle(pickedStakeholders, i)"
+          @click="toggleStakeholder(i)"
           class="w-full text-left text-sm py-2 px-3 rounded-lg mb-2 transition"
-          :class="pickedStakeholders.has(i) ? 'bg-brand-600' : 'bg-slate-800 hover:bg-slate-700'"
+          :class="pickedStakeholders.includes(i)
+            ? 'bg-brand-600 text-white'
+            : 'bg-slate-800 hover:bg-slate-700'"
         >
           {{ s.text }}
         </button>
